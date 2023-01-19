@@ -34,6 +34,8 @@ public static class TutorialScenes
 
     public static Scene BookCover()
     {
+        bool moving = true;
+
         // World
         var random = RandomHelper.Instance;
         var world = new StructureList();
@@ -55,6 +57,8 @@ public static class TutorialScenes
                         // Diffuse
                         var albedo = Color.Random() * Color.Random();
                         materialSphere = new Lambertian(albedo);
+                        var centerTo = center + new Vec3(0, random.NextDouble(0, 0.5), 0);
+                        world.Add(new MovingSphere(center, moving ? centerTo : center, 0.0, 1.0, 0.2, materialSphere));
                     }
                     else if (selectMaterial < 0.95)
                     {
@@ -62,13 +66,14 @@ public static class TutorialScenes
                         var albedo = Color.Random(0.5, 1);
                         var fuzz = random.NextDouble(0, 0.5);
                         materialSphere = new Metal(albedo, fuzz);
+                        world.Add(new Sphere(center, 0.2, materialSphere));
                     }
                     else
                     {
                         // Glass
                         materialSphere = new Dielectric(1.5);
+                        world.Add(new Sphere(center, 0.2, materialSphere));
                     }
-                    world.Add(new Sphere(center, 0.2, materialSphere));
                 }
             }
         }
@@ -85,8 +90,13 @@ public static class TutorialScenes
         // Camera
         var lookFrom = new Point3(13, 2, 3);
         var lookAt = new Point3(0, 0, 0);
-        var cameraSettings = new CameraSettings(lookFrom, lookAt, 20, 0.1, 10.0, 0.0, 0.0);
-        
+        var fieldOfView = 20.0;
+        var aperture = 0.1;
+        var focusDistance = 10.0;
+        var timeFrom = 0.0;
+        var timeTo = 1.0;
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, timeFrom, timeTo);
+
         return new Scene(world, cameraSettings);
     }
 }
