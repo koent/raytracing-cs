@@ -17,9 +17,11 @@ public class Camera
 
     private double LensRadius;
 
-    public Camera(CameraSettings settings, double aspectRatio) : this(settings.LookFrom, settings.LookAt, Vec3.Up, settings.FieldOfView, aspectRatio, settings.Aperture, settings.FocusDistance) { }
+    private double TimeFrom, TimeTo;
 
-    public Camera(Point3 lookFrom, Point3 lookAt, Vec3 up, double fieldOfView, double aspectRatio, double aperture, double focusDistance)
+    public Camera(CameraSettings settings, double aspectRatio) : this(settings.LookFrom, settings.LookAt, Vec3.Up, settings.FieldOfView, aspectRatio, settings.Aperture, settings.FocusDistance, settings.TimeFrom, settings.TimeTo) { }
+
+    public Camera(Point3 lookFrom, Point3 lookAt, Vec3 up, double fieldOfView, double aspectRatio, double aperture, double focusDistance, double timeFrom, double timeTo)
     {
         double theta = HelperFunctions.DegreesToRadians(fieldOfView);
         double h = Math.Tan(theta / 2.0);
@@ -36,6 +38,8 @@ public class Camera
         LowerLeftCorner = Origin - Horizontal / 2 - Vertical / 2 - focusDistance * W;
 
         LensRadius = aperture / 2.0;
+        TimeFrom = timeFrom;
+        TimeTo = timeTo;
     }
 
     public Ray GetRay(double u, double v)
@@ -43,6 +47,6 @@ public class Camera
         Vec3 standardOffset = LensRadius * Vec3.RandomInUnitDisk();
         Vec3 offset = U * standardOffset.X + U * standardOffset.Y;
         var direction = new Vec3(Origin + offset, LowerLeftCorner + u * Horizontal + v * Vertical);
-        return new Ray(Origin + offset, direction);
+        return new Ray(Origin + offset, direction, RandomHelper.Instance.NextDouble(TimeFrom, TimeTo));
     }
 }

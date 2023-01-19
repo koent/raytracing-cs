@@ -27,7 +27,7 @@ public static class TutorialScenes
         // Camera
         var lookFrom = new Point3(-2.0, 2.0, 1.0);
         var lookAt = new Point3(0.0, 0.0, -1.0);
-        var cameraSettings = new CameraSettings(lookFrom, lookAt, 40, 0.05);
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, 40, 0.05, 0.0, 0.0);
 
         return new Scene(world, cameraSettings);
     }
@@ -85,7 +85,7 @@ public static class TutorialScenes
         // Camera
         var lookFrom = new Point3(13, 2, 3);
         var lookAt = new Point3(0, 0, 0);
-        var cameraSettings = new CameraSettings(lookFrom, lookAt, 20, 0.1, 10.0);
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, 20, 0.1, 10.0, 0.0, 0.0);
         
         return new Scene(world, cameraSettings);
     }

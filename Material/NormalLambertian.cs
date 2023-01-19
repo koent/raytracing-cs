@@ -14,7 +14,7 @@ public class NormalLambertian : IMaterial
         if (scatterDirection.IsNearZero)
             scatterDirection = hitRecord.Normal;
 
-        scattered = new Ray(hitRecord.Point, scatterDirection);
+        scattered = new Ray(hitRecord.Point, scatterDirection, incoming.Time);
         attenuation = new Color(0.5 * hitRecord.Normal.X + 0.5, 0.5 * hitRecord.Normal.Y + 0.5, 0.5 * hitRecord.Normal.Z + 0.5);
         return true;
     }
