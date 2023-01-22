@@ -17,22 +17,22 @@ public struct BoundingBox
                                                             && OverlapCheck(p => p.Y, incoming, ref tMin, ref tMax)
                                                             && OverlapCheck(p => p.Z, incoming, ref tMin, ref tMax);
 
-    private bool SimpleOverlapCheck(Func<Point3, double> dimension, Ray incoming, ref double tMin, ref double tMax)
+    private bool SimpleOverlapCheck(Func<Point3, double> axis, Ray incoming, ref double tMin, ref double tMax)
     {
-        var tFirst = Math.Min((dimension(Minimum) - dimension(incoming.Origin)) / dimension(incoming.Direction.AsPoint3),
-                              (dimension(Maximum) - dimension(incoming.Origin)) / dimension(incoming.Direction.AsPoint3));
-        var tSecond = Math.Max((dimension(Minimum) - dimension(incoming.Origin)) / dimension(incoming.Direction.AsPoint3),
-                               (dimension(Maximum) - dimension(incoming.Origin)) / dimension(incoming.Direction.AsPoint3));
+        var tFirst = Math.Min((axis(Minimum) - axis(incoming.Origin)) / axis(incoming.Direction.AsPoint3),
+                              (axis(Maximum) - axis(incoming.Origin)) / axis(incoming.Direction.AsPoint3));
+        var tSecond = Math.Max((axis(Minimum) - axis(incoming.Origin)) / axis(incoming.Direction.AsPoint3),
+                               (axis(Maximum) - axis(incoming.Origin)) / axis(incoming.Direction.AsPoint3));
         tMin = Math.Max(tMin, tFirst);
         tMax = Math.Min(tMax, tSecond);
         return tMin < tMax;
     }
 
-    private bool OverlapCheck(Func<Vec3, double> dimension, Ray incoming, ref double tMin, ref double tMax)
+    private bool OverlapCheck(Func<Vec3, double> axis, Ray incoming, ref double tMin, ref double tMax)
     {
-        var inverseDirection = 1.0 / dimension(incoming.Direction);
-        var tFirst = dimension(new Vec3(incoming.Origin, Minimum)) * inverseDirection;
-        var tSecond = dimension(new Vec3(incoming.Origin, Maximum)) * inverseDirection;
+        var inverseDirection = 1.0 / axis(incoming.Direction);
+        var tFirst = axis(new Vec3(incoming.Origin, Minimum)) * inverseDirection;
+        var tSecond = axis(new Vec3(incoming.Origin, Maximum)) * inverseDirection;
         if (inverseDirection < 0.0)
             (tFirst, tSecond) = (tSecond, tFirst);
         tMin = tFirst > tMin ? tFirst : tMin;
