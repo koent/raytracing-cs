@@ -32,8 +32,10 @@ public class Perlin
                 for (int dk = 0; dk < 2; dk++)
                     c[di, dj, dk] = randomDouble[PermutationX[(int)(i + di) & 255] ^ PermutationY[(int)(j + dj) & 255] ^ PermutationZ[(int)(k + dk) & 255]];
 
-        return Interpolate(c, point.X - i, point.Y - j, point.Z - k);
+        return Interpolate(c, Hermite(point.X - i), Hermite(point.Y - j), Hermite(point.Z - k));
     }
+
+    private double Hermite(double value) => value * value * (3 - 2 * value);
 
     private int[] GeneratePerlinPermutation()
     {
