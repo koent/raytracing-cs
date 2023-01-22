@@ -43,8 +43,15 @@ public class Sphere : IStructure
                 return previousHitRecord;
         }
 
-        return new HitRecord(ray, intersection, Normal, Material);
+        return new HitRecord(ray, intersection, Normal, UV, Material);
     }
 
     public BoundingBox? BoundingBox(double timeFrom, double timeTo) => new BoundingBox(Center - new Vec3(Radius, Radius, Radius), Center + new Vec3(Radius, Radius, Radius));
+
+    private (double, double) UV(Vec3 outwardNormal)
+    {
+        var θ = Math.Acos(-outwardNormal.Y);
+        var φ = Math.Atan2(-outwardNormal.Z, outwardNormal.X) + Math.PI;
+        return (φ / 2 * Math.PI, θ / Math.PI);
+    }
 }

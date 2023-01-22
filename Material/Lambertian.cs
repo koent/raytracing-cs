@@ -1,16 +1,19 @@
 using Raytracer.Raytracing;
 using Raytracer.Structure;
+using Raytracer.Texture;
 using Raytracer.Vector;
 
 namespace Raytracer.Material;
 
 public class Lambertian : IMaterial
 {
-    public Color Albedo;
+    public ITexture Albedo;
 
-    public Lambertian(Color color)
+    public Lambertian(Color color) : this(new SolidColor(color)) { }
+
+    public Lambertian(ITexture texture)
     {
-        Albedo = color;
+        Albedo = texture;
     }
 
     public bool Scatter(Ray incoming, HitRecord hitRecord, out Color attenuation, out Ray scattered)
@@ -22,7 +25,7 @@ public class Lambertian : IMaterial
             scatterDirection = hitRecord.Normal;
 
         scattered = new Ray(hitRecord.Point, scatterDirection, incoming.Time);
-        attenuation = Albedo;
+        attenuation = Albedo.Value(hitRecord.U, hitRecord.V, hitRecord.Point);
         return true;
     }
 }

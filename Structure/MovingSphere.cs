@@ -50,7 +50,7 @@ public class MovingSphere : IStructure
                 return previousHitRecord;
         }
 
-        return new HitRecord(ray, intersection, Normal(ray.Time), Material);
+        return new HitRecord(ray, intersection, Normal(ray.Time), UV, Material);
     }
 
     public BoundingBox? BoundingBox(double timeFrom, double timeTo)
@@ -59,5 +59,12 @@ public class MovingSphere : IStructure
         var boxFrom = new BoundingBox(Center(timeFrom) - radiusVector, Center(timeFrom) + radiusVector);
         var boxTo = new BoundingBox(Center(timeTo) - radiusVector, Center(timeTo) + radiusVector);
         return boxFrom + boxTo;
+    }
+
+    private (double, double) UV(Vec3 outwardNormal)
+    {
+        var θ = Math.Acos(-outwardNormal.Y);
+        var φ = Math.Atan2(-outwardNormal.Z, outwardNormal.X) + Math.PI;
+        return (φ / 2 * Math.PI, θ / Math.PI);
     }
 }
