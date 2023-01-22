@@ -22,11 +22,17 @@ public class Perlin
 
     public double Noise(Point3 point)
     {
-        int x = (int)(4 * point.X) & 255;
-        int y = (int)(4 * point.Y) & 255;
-        int z = (int)(4 * point.Z) & 255;
+        var i = Math.Floor(point.X);
+        var j = Math.Floor(point.Y);
+        var k = Math.Floor(point.Z);
+        double[,,] c = new double[2, 2, 2];
 
-        return randomDouble[PermutationX[x] ^ PermutationY[y] ^ PermutationZ[z]];
+        for (int di = 0; di < 2; di++)
+            for (int dj = 0; dj < 2; dj++)
+                for (int dk = 0; dk < 2; dk++)
+                    c[di, dj, dk] = randomDouble[PermutationX[(int)(i + di) & 255] ^ PermutationY[(int)(j + dj) & 255] ^ PermutationZ[(int)(k + dk) & 255]];
+
+        return Interpolate(c, point.X - i, point.Y - j, point.Z - k);
     }
 
     private int[] GeneratePerlinPermutation()
@@ -39,7 +45,7 @@ public class Perlin
         return permutation;
     }
 
-    static void Permute(ref int[] array)
+    private static void Permute(ref int[] array)
     {
         for (int i = nofPoints - 1; i > 0; i--)
         {
@@ -47,4 +53,17 @@ public class Perlin
             (array[i], array[target]) = (array[target], array[i]);
         }
     }
+
+    private static double Interpolate(double[,,] c, double u, double v, double w)
+    {
+        var result = 0.0;
+        for (int di = 0; di < 2; di++)
+            for (int dj = 0; dj < 2; dj++)
+                for (int dk = 0; dk < 2; dk++)
+                    result += Lerp(1 - u, u, di) * Lerp(1 - v, v, dj) * Lerp(1 - w, w, dk) * c[di, dj, dk];
+
+        return result;
+    }
+
+    private static double Lerp(double start, double end, double position) => (1 - position) * start + position * end;
 }
