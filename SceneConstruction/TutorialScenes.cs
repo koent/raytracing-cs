@@ -102,4 +102,23 @@ public static class TutorialScenes
 
         return new Scene(new BVHNode(world, timeFrom, timeTo), cameraSettings);
     }
+
+    public static Scene CheckeredSpheres()
+    {
+        // World
+        var world = new StructureList();
+        var checker = new Checkerboard(Color.DarkOlive, Color.LightGrey);
+        world.Add(new Sphere(new Point3(0, -10, 0), 10, new Lambertian(checker)));
+        world.Add(new Sphere(new Point3(0, 10, 0), 10, new Lambertian(checker)));
+
+        // Camera
+        var lookFrom = new Point3(13, 2, 3);
+        var lookAt = new Point3(0, 0, 0);
+        var fieldOfView = 20.0;
+        var aperture = 0.0;
+        var focusDistance = 10.0;
+
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
+        return new Scene(world, cameraSettings);
+    }
 }

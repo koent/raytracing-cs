@@ -5,13 +5,13 @@ using System.Diagnostics;
 
 // Image settings
 const double aspectRatio = 16.0 / 9.0;
-const int imageWidth = 400;
+const int imageWidth = 800;
 const int imageHeight = (int)(imageWidth / aspectRatio);
 const int nofSamples = 16;
 const int maxDepth = 50;
 
 // Set up renderer
-var scene = TutorialScenes.BookCover();
+var scene = TutorialScenes.CheckeredSpheres();
 var camera = new Camera(scene.CameraSettings, aspectRatio);
 var renderer = new Renderer(scene.World, camera, maxDepth, imageWidth, imageHeight);
 
