@@ -5,7 +5,7 @@ namespace Raytracer.Structure;
 
 public interface IStructure
 {
-    public bool Hit(Ray ray, double tMin, double tMax, out HitRecord hitRecord);
+    public HitRecord? Hit(Ray ray, double tMin, double tMax, HitRecord hitRecord = default);
 
     public BoundingBox? BoundingBox(double timeFrom, double timeTo);
 }

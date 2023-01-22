@@ -29,16 +29,15 @@ public class MovingSphere : IStructure
 
     public Func<Point3, Vec3> Normal(double time) => (Point3 point) => new Vec3(Center(time), point) / Radius;
 
-    public bool Hit(Ray ray, double tMin, double tMax, out HitRecord hitRecord)
+    public HitRecord? Hit(Ray ray, double tMin, double tMax, HitRecord _)
     {
-        hitRecord = default;
         var centerToOrigin = new Vec3(Center(ray.Time), ray.Origin);
         var a = ray.Direction.LengthSquared;
         var half_b = Vec3.Dot(centerToOrigin, ray.Direction);
         var c = centerToOrigin.LengthSquared - Radius * Radius;
         var discriminant = half_b * half_b - a * c;
         if (discriminant < 0)
-            return false;
+            return null;
 
         var rootDiscriminant = Math.Sqrt(discriminant);
 
@@ -48,11 +47,10 @@ public class MovingSphere : IStructure
         {
             intersection = (-half_b + rootDiscriminant) / a;
             if (intersection < tMin || tMax < intersection)
-                return false;
+                return null;
         }
 
-        hitRecord = new HitRecord(ray, intersection, Normal(ray.Time), Material);
-        return true;
+        return new HitRecord(ray, intersection, Normal(ray.Time), Material);
     }
 
     public BoundingBox? BoundingBox(double timeFrom, double timeTo)

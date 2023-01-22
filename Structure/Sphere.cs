@@ -22,16 +22,15 @@ public class Sphere : IStructure
 
     public Vec3 Normal(Point3 point) => new Vec3(Center, point) / Radius;
 
-    public bool Hit(Ray ray, double tMin, double tMax, out HitRecord hitRecord)
+    public HitRecord? Hit(Ray ray, double tMin, double tMax, HitRecord _)
     {
-        hitRecord = default;
         var centerToOrigin = new Vec3(Center, ray.Origin);
         var a = ray.Direction.LengthSquared;
         var half_b = Vec3.Dot(centerToOrigin, ray.Direction);
         var c = centerToOrigin.LengthSquared - Radius * Radius;
         var discriminant = half_b * half_b - a * c;
         if (discriminant < 0)
-            return false;
+            return null;
 
         var rootDiscriminant = Math.Sqrt(discriminant);
 
@@ -41,11 +40,10 @@ public class Sphere : IStructure
         {
             intersection = (-half_b + rootDiscriminant) / a;
             if (intersection < tMin || tMax < intersection)
-                return false;
+                return null;
         }
 
-        hitRecord = new HitRecord(ray, intersection, Normal, Material);
-        return true;
+        return new HitRecord(ray, intersection, Normal, Material);
     }
 
     public BoundingBox? BoundingBox(double timeFrom, double timeTo) => new BoundingBox(Center - new Vec3(Radius, Radius, Radius), Center + new Vec3(Radius, Radius, Radius));

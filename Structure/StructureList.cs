@@ -21,23 +21,21 @@ class StructureList : IStructure
 
     public void Add(IStructure structure) => Structures.Add(structure);
 
-    public bool Hit(Ray ray, double tMin, double tMax, out HitRecord hitRecord)
+    public HitRecord? Hit(Ray ray, double tMin, double tMax, HitRecord _)
     {
-        hitRecord = default;
-        HitRecord currentRecord;
-        bool hitAnything = false;
+        HitRecord? result = null;
         var tClosest = tMax;
         foreach (var structure in Structures)
         {
-            if (structure.Hit(ray, tMin, tClosest, out currentRecord))
+            var hitRecord = structure.Hit(ray, tMin, tClosest, _);
+            if (hitRecord.HasValue)
             {
-                hitAnything = true;
-                tClosest = currentRecord.T;
-                hitRecord = currentRecord;
+                tClosest = hitRecord.Value.T;
+                result = hitRecord;
             }
         }
 
-        return hitAnything;
+        return result;
     }
 
     public BoundingBox? BoundingBox(double timeFrom, double timeTo) => Structures.Select(s => s.BoundingBox(timeFrom, timeTo)).Aggregate((l, r) => l + r);

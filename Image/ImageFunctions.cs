@@ -14,12 +14,12 @@ public static class ImageFunctions
         if (depth <= 0)
             return Color.Black;
 
-        HitRecord hitRecord;
-        if (world.Hit(ray, 0.001, double.MaxValue, out hitRecord))
+        var hitRecord = world.Hit(ray, 0.001, double.MaxValue);
+        if (hitRecord.HasValue)
         {
             Ray scattered;
             Color attenuation;
-            if (hitRecord.Material.Scatter(ray, hitRecord, out attenuation, out scattered))
+            if (hitRecord.Value.Material.Scatter(ray, hitRecord.Value, out attenuation, out scattered))
                 return attenuation * RayColor(scattered, world, depth - 1);
             return Color.Black;
         }
