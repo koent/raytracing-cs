@@ -2,6 +2,7 @@ using Raytracer.Helpers;
 using Raytracer.Material;
 using Raytracer.Raytracing;
 using Raytracer.Structure;
+using Raytracer.Structure.BVH;
 using Raytracer.Vector;
 
 namespace Raytracer.SceneConstruction;
@@ -97,6 +98,6 @@ public static class TutorialScenes
         var timeTo = 1.0;
         var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, timeFrom, timeTo);
 
-        return new Scene(world, cameraSettings);
+        return new Scene(new BVHNode(world, timeFrom, timeTo), cameraSettings);
     }
 }
