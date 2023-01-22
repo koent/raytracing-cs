@@ -16,6 +16,19 @@ public struct HitRecord
 
     public IMaterial Material;
 
+    public bool IsHit;
+
+    public HitRecord()
+    {
+        T = double.PositiveInfinity;
+        IsHit = false;
+
+        Point = default;
+        Normal = default;
+        FrontFace = default;
+        Material = new Dielectric(1);
+    }
+
     public HitRecord(Ray ray, double intersection, Func<Point3, Vec3> normalCalculation, IMaterial material)
     {
         T = intersection;
@@ -24,5 +37,6 @@ public struct HitRecord
         FrontFace = Vec3.Dot(ray.Direction, outwardNormal) < 0.0;
         Normal = FrontFace ? outwardNormal : -outwardNormal;
         Material = material;
+        IsHit = true;
     }
 }

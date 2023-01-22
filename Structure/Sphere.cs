@@ -22,7 +22,7 @@ public class Sphere : IStructure
 
     public Vec3 Normal(Point3 point) => new Vec3(Center, point) / Radius;
 
-    public HitRecord? Hit(Ray ray, double tMin, double tMax, HitRecord _)
+    public HitRecord Hit(Ray ray, double tMin, HitRecord previousHitRecord)
     {
         var centerToOrigin = new Vec3(Center, ray.Origin);
         var a = ray.Direction.LengthSquared;
@@ -30,17 +30,17 @@ public class Sphere : IStructure
         var c = centerToOrigin.LengthSquared - Radius * Radius;
         var discriminant = half_b * half_b - a * c;
         if (discriminant < 0)
-            return null;
+            return previousHitRecord;
 
         var rootDiscriminant = Math.Sqrt(discriminant);
 
         // Find nearest intersection between tMin and tMax
         var intersection = (-half_b - rootDiscriminant) / a;
-        if (intersection < tMin || tMax < intersection)
+        if (intersection < tMin || previousHitRecord.T < intersection)
         {
             intersection = (-half_b + rootDiscriminant) / a;
-            if (intersection < tMin || tMax < intersection)
-                return null;
+            if (intersection < tMin || previousHitRecord.T < intersection)
+                return previousHitRecord;
         }
 
         return new HitRecord(ray, intersection, Normal, Material);

@@ -3,7 +3,7 @@ using Raytracer.Structure.BVH;
 
 namespace Raytracer.Structure;
 
-class StructureList : IStructure
+public class StructureList : IStructure
 {
     private List<IStructure> Structures;
 
@@ -21,22 +21,16 @@ class StructureList : IStructure
 
     public void Add(IStructure structure) => Structures.Add(structure);
 
-    public HitRecord? Hit(Ray ray, double tMin, double tMax, HitRecord _)
+    public HitRecord Hit(Ray ray, double tMin, HitRecord previousHitRecord)
     {
-        HitRecord? result = null;
-        var tClosest = tMax;
+        var result = previousHitRecord;
         foreach (var structure in Structures)
-        {
-            var hitRecord = structure.Hit(ray, tMin, tClosest, _);
-            if (hitRecord.HasValue)
-            {
-                tClosest = hitRecord.Value.T;
-                result = hitRecord;
-            }
-        }
+            result = structure.Hit(ray, tMin, result);
 
         return result;
     }
 
     public BoundingBox? BoundingBox(double timeFrom, double timeTo) => Structures.Select(s => s.BoundingBox(timeFrom, timeTo)).Aggregate((l, r) => l + r);
+
+    public IStructure[] AsArray => Structures.ToArray();
 }
