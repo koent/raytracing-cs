@@ -48,7 +48,7 @@ public struct BoundingBox
             return left;
 
         var minimum = new Point3(Math.Min(left.Value.Minimum.X, right.Value.Minimum.X), Math.Min(left.Value.Minimum.Y, right.Value.Minimum.Y), Math.Min(left.Value.Minimum.Z, right.Value.Minimum.Z));
-        var maximum = new Point3(Math.Min(left.Value.Maximum.X, right.Value.Maximum.X), Math.Min(left.Value.Maximum.Y, right.Value.Maximum.Y), Math.Min(left.Value.Maximum.Z, right.Value.Maximum.Z));
+        var maximum = new Point3(Math.Max(left.Value.Maximum.X, right.Value.Maximum.X), Math.Max(left.Value.Maximum.Y, right.Value.Maximum.Y), Math.Max(left.Value.Maximum.Z, right.Value.Maximum.Z));
         return new BoundingBox(minimum, maximum);
     }
 }
