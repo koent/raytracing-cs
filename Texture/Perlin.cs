@@ -3,17 +3,18 @@ using Raytracer.Vector;
 
 public class Perlin
 {
-    private static int nofPoints = 256;
+    private static int NofPoints = 256;
 
-    private double[] randomDouble;
+    private double[] RandomDouble;
 
     private int[] PermutationX, PermutationY, PermutationZ;
 
     public Perlin()
     {
-        randomDouble = new double[nofPoints];
-        for (int i = 0; i < nofPoints; i++)
-            randomDouble[i] = RandomHelper.Instance.NextDouble();
+        RandomDouble = new double[NofPoints];
+        for (int i = 0; i < NofPoints; i++)
+            RandomDouble[i] = RandomHelper.Instance.NextDouble();
+
 
         PermutationX = GeneratePerlinPermutation();
         PermutationY = GeneratePerlinPermutation();
@@ -30,7 +31,7 @@ public class Perlin
         for (int di = 0; di < 2; di++)
             for (int dj = 0; dj < 2; dj++)
                 for (int dk = 0; dk < 2; dk++)
-                    c[di, dj, dk] = randomDouble[PermutationX[(int)(i + di) & 255] ^ PermutationY[(int)(j + dj) & 255] ^ PermutationZ[(int)(k + dk) & 255]];
+                    c[di, dj, dk] = RandomDouble[PermutationX[(int)(i + di) & 255] ^ PermutationY[(int)(j + dj) & 255] ^ PermutationZ[(int)(k + dk) & 255]];
 
         return Interpolate(c, Hermite(point.X - i), Hermite(point.Y - j), Hermite(point.Z - k));
     }
@@ -39,8 +40,8 @@ public class Perlin
 
     private int[] GeneratePerlinPermutation()
     {
-        var permutation = new int[nofPoints];
-        for (int i = 0; i < nofPoints; i++)
+        var permutation = new int[NofPoints];
+        for (int i = 0; i < NofPoints; i++)
             permutation[i] = i;
 
         Permute(ref permutation);
@@ -49,7 +50,7 @@ public class Perlin
 
     private static void Permute(ref int[] array)
     {
-        for (int i = nofPoints - 1; i > 0; i--)
+        for (int i = NofPoints - 1; i > 0; i--)
         {
             int target = RandomHelper.Instance.Next(i);
             (array[i], array[target]) = (array[target], array[i]);
