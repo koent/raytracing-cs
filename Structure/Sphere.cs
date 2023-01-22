@@ -1,5 +1,6 @@
 using Raytracer.Material;
 using Raytracer.Raytracing;
+using Raytracer.Structure.BVH;
 using Raytracer.Vector;
 
 namespace Raytracer.Structure;
@@ -46,4 +47,6 @@ public class Sphere : IStructure
         hitRecord = new HitRecord(ray, intersection, Normal, Material);
         return true;
     }
+
+    public BoundingBox? BoundingBox(double timeFrom, double timeTo) => new BoundingBox(Center - new Vec3(Radius, Radius, Radius), Center + new Vec3(Radius, Radius, Radius));
 }

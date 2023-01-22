@@ -3,7 +3,7 @@ using Raytracer.Vector;
 
 namespace Raytracer.Structure.BVH;
 
-public class BoundingBox
+public struct BoundingBox
 {
     public Point3 Minimum, Maximum;
 
@@ -38,5 +38,17 @@ public class BoundingBox
         tMin = tFirst > tMin ? tFirst : tMin;
         tMax = tSecond < tMax ? tSecond : tMax;
         return tMin < tMax;
+    }
+
+    public static BoundingBox? operator +(BoundingBox? left, BoundingBox? right)
+    {
+        if (!left.HasValue)
+            return right;
+        if (!right.HasValue)
+            return left;
+
+        var minimum = new Point3(Math.Min(left.Value.Minimum.X, right.Value.Minimum.X), Math.Min(left.Value.Minimum.Y, right.Value.Minimum.Y), Math.Min(left.Value.Minimum.Z, right.Value.Minimum.Z));
+        var maximum = new Point3(Math.Min(left.Value.Maximum.X, right.Value.Maximum.X), Math.Min(left.Value.Maximum.Y, right.Value.Maximum.Y), Math.Min(left.Value.Maximum.Z, right.Value.Maximum.Z));
+        return new BoundingBox(minimum, maximum);
     }
 }

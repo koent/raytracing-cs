@@ -1,5 +1,5 @@
 using Raytracer.Raytracing;
-using System.Collections;
+using Raytracer.Structure.BVH;
 
 namespace Raytracer.Structure;
 
@@ -39,4 +39,6 @@ class StructureList : IStructure
 
         return hitAnything;
     }
+
+    public BoundingBox? BoundingBox(double timeFrom, double timeTo) => Structures.Select(s => s.BoundingBox(timeFrom, timeTo)).Aggregate((l, r) => l + r);
 }
