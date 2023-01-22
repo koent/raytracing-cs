@@ -5,15 +5,15 @@ public class Perlin
 {
     private static int NofPoints = 256;
 
-    private double[] RandomDouble;
+    private Vec3[] RandomVector;
 
     private int[] PermutationX, PermutationY, PermutationZ;
 
     public Perlin()
     {
-        RandomDouble = new double[NofPoints];
+        RandomVector = new Vec3[NofPoints];
         for (int i = 0; i < NofPoints; i++)
-            RandomDouble[i] = RandomHelper.Instance.NextDouble();
+            RandomVector[i] = Vec3.Random(-1, 1).UnitVector;
 
 
         PermutationX = GeneratePerlinPermutation();
@@ -26,17 +26,17 @@ public class Perlin
         var i = Math.Floor(point.X);
         var j = Math.Floor(point.Y);
         var k = Math.Floor(point.Z);
-        double[,,] c = new double[2, 2, 2];
+        var c = new Vec3[2, 2, 2];
 
         for (int di = 0; di < 2; di++)
             for (int dj = 0; dj < 2; dj++)
                 for (int dk = 0; dk < 2; dk++)
-                    c[di, dj, dk] = RandomDouble[PermutationX[(int)(i + di) & 255] ^ PermutationY[(int)(j + dj) & 255] ^ PermutationZ[(int)(k + dk) & 255]];
+                    c[di, dj, dk] = RandomVector[PermutationX[(int)(i + di) & 255] ^ PermutationY[(int)(j + dj) & 255] ^ PermutationZ[(int)(k + dk) & 255]];
 
-        return Interpolate(c, Hermite(point.X - i), Hermite(point.Y - j), Hermite(point.Z - k));
+        return Interpolate(c, point.X - i, point.Y - j, point.Z - k);
     }
 
-    private double Hermite(double value) => value * value * (3 - 2 * value);
+    private static double Hermite(double value) => value * value * (3 - 2 * value);
 
     private int[] GeneratePerlinPermutation()
     {
@@ -57,13 +57,20 @@ public class Perlin
         }
     }
 
-    private static double Interpolate(double[,,] c, double u, double v, double w)
+    private static double Interpolate(Vec3[,,] c, double u, double v, double w)
     {
+        var uu = Hermite(u);
+        var vv = Hermite(v);
+        var ww = Hermite(w);
+
         var result = 0.0;
         for (int di = 0; di < 2; di++)
             for (int dj = 0; dj < 2; dj++)
                 for (int dk = 0; dk < 2; dk++)
-                    result += Lerp(1 - u, u, di) * Lerp(1 - v, v, dj) * Lerp(1 - w, w, dk) * c[di, dj, dk];
+                {
+                    var weight = new Vec3(u - di, v - dj, w - dk);
+                    result += Lerp(1 - u, u, di) * Lerp(1 - v, v, dj) * Lerp(1 - w, w, dk) * Vec3.Dot(c[di, dj, dk], weight);
+                }
 
         return result;
     }

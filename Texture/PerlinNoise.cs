@@ -21,5 +21,5 @@ public class PerlinNoise : ITexture
         Scale = scale;
     }
 
-    public Color Value(double u, double v, Point3 point) => Color.Lerp(First.Value(u, v, point), Second.Value(u, v, point), Noise.Noise(Scale * point));
+    public Color Value(double u, double v, Point3 point) => Color.Lerp(First.Value(u, v, point), Second.Value(u, v, point), 0.5 + 0.5 * Noise.Noise(Scale * point));
 }
