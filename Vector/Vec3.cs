@@ -48,6 +48,8 @@ public struct Vec3
 
     public override string ToString() => $"{X} {Y} {Z}";
 
+    public Point3 AsPoint3 => new Point3(X, Y, Z);
+
     public static Vec3 Random() => new Vec3(RandomHelper.Instance.NextDouble(), RandomHelper.Instance.NextDouble(), RandomHelper.Instance.NextDouble());
 
     public static Vec3 Random(double min, double max) => new Vec3(RandomHelper.Instance.NextDouble(min, max), RandomHelper.Instance.NextDouble(min, max), RandomHelper.Instance.NextDouble(min, max));
