@@ -126,7 +126,7 @@ public static class TutorialScenes
     {
         // World
         var world = new StructureList();
-        var perlin = new PerlinNoise(Color.Yellow, Color.DarkOlive);
+        var perlin = new PerlinTurbulence(scale: 4);
         world.Add(new Sphere(new Point3(0, -1000, 0), 1000, new Lambertian(perlin)));
         world.Add(new Sphere(new Point3(0, 2, 0), 2, new Lambertian(perlin)));
 

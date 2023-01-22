@@ -36,6 +36,21 @@ public class Perlin
         return Interpolate(c, point.X - i, point.Y - j, point.Z - k);
     }
 
+    public double Turbulence(Point3 point, int depth = 7)
+    {
+        var result = 0.0;
+        var weight = 1.0;
+
+        for (int i = 0; i < depth; i++)
+        {
+            result += weight * Noise(point);
+            weight /= 2;
+            point = 2 * point;
+        }
+
+        return Math.Abs(result);
+    }
+
     private static double Hermite(double value) => value * value * (3 - 2 * value);
 
     private int[] GeneratePerlinPermutation()
