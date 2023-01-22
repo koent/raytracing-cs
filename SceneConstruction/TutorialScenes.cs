@@ -121,4 +121,23 @@ public static class TutorialScenes
         var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
         return new Scene(world, cameraSettings);
     }
+
+    public static Scene TwoPerlinSpheres()
+    {
+        // World
+        var world = new StructureList();
+        var perlin = new PerlinNoise(Color.Yellow, Color.DarkOlive);
+        world.Add(new Sphere(new Point3(0, -1000, 0), 1000, new Lambertian(perlin)));
+        world.Add(new Sphere(new Point3(0, 2, 0), 2, new Lambertian(perlin)));
+
+        // Camera
+        var lookFrom = new Point3(13, 2, 3);
+        var lookAt = new Point3(0, 0, 0);
+        var fieldOfView = 20.0;
+        var aperture = 0.0;
+        var focusDistance = 10.0;
+
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
+        return new Scene(world, cameraSettings);
+    }
 }

@@ -11,7 +11,7 @@ const int nofSamples = 16;
 const int maxDepth = 50;
 
 // Set up renderer
-var scene = TutorialScenes.CheckeredSpheres();
+var scene = TutorialScenes.TwoPerlinSpheres();
 var camera = new Camera(scene.CameraSettings, aspectRatio);
 var renderer = new Renderer(scene.World, camera, maxDepth, imageWidth, imageHeight);
 
