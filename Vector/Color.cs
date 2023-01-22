@@ -73,6 +73,8 @@ public struct Color
     public static Color Grey => new Color(0.5, 0.5, 0.5);
 
     public static Color DarkRed => new Color(0.4, 0.2, 0.1);
+
+    public static Color DarkOlive => new Color(0.2, 0.3, 0.1);
 }
 
 public static class ColorExtensions

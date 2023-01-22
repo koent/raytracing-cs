@@ -3,6 +3,7 @@ using Raytracer.Material;
 using Raytracer.Raytracing;
 using Raytracer.Structure;
 using Raytracer.Structure.BVH;
+using Raytracer.Texture;
 using Raytracer.Vector;
 
 namespace Raytracer.SceneConstruction;
@@ -41,7 +42,8 @@ public static class TutorialScenes
         var random = RandomHelper.Instance;
         var world = new StructureList();
 
-        var materialGround = new Lambertian(Color.Grey);
+        var checker = new Checkerboard(Color.DarkOlive, Color.LightGrey);
+        var materialGround = new Lambertian(checker);
         world.Add(new Sphere(new Point3(0, -1000, 0), 1000, materialGround));
 
         for (int a = -11; a < 11; a++)
