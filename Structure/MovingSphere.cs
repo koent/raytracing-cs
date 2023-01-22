@@ -31,10 +31,10 @@ public class MovingSphere : IStructure
     public bool Hit(Ray ray, double tMin, double tMax, out HitRecord hitRecord)
     {
         hitRecord = default;
-        var originToCenter = new Vec3(Center(ray.Time), ray.Origin);
+        var centerToOrigin = new Vec3(Center(ray.Time), ray.Origin);
         var a = ray.Direction.LengthSquared;
-        var half_b = Vec3.Dot(originToCenter, ray.Direction);
-        var c = originToCenter.LengthSquared - Radius * Radius;
+        var half_b = Vec3.Dot(centerToOrigin, ray.Direction);
+        var c = centerToOrigin.LengthSquared - Radius * Radius;
         var discriminant = half_b * half_b - a * c;
         if (discriminant < 0)
             return false;
