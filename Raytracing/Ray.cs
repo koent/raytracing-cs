@@ -2,7 +2,7 @@ using Raytracer.Vector;
 
 namespace Raytracer.Raytracing;
 
-public class Ray
+public struct Ray
 {
     public Point3 Origin;
 
