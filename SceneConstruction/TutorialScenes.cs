@@ -140,4 +140,26 @@ public static class TutorialScenes
         var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
         return new Scene(world, cameraSettings);
     }
+
+    public static Scene Rectangle()
+    {
+        // World
+        var world = new StructureList();
+
+        var ground = new Marble(scale: 4);
+        world.Add(new Sphere(new Point3(0, -1000, 0), 1000, new Lambertian(ground)));
+        world.Add(new Sphere(new Point3(0, 2, 0), 2, new Lambertian(ground)));
+
+        world.Add(new XYRectangle(3, 5, 1, 3, -2, new Lambertian(Color.Red)));
+
+        // Camera
+        var lookFrom = new Point3(26, 3, 6);
+        var lookAt = new Point3(0, 2, 0);
+        var fieldOfView = 20.0;
+        var aperture = 0.0;
+        var focusDistance = 10.0;
+
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
+        return new Scene(world, cameraSettings);
+    }
 }
