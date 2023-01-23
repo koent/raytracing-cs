@@ -31,7 +31,7 @@ public static class TutorialScenes
         var lookAt = new Point3(0.0, 0.0, -1.0);
         var cameraSettings = new CameraSettings(lookFrom, lookAt, 40, 0.05, 0.0, 0.0);
 
-        return new Scene(world, cameraSettings);
+        return new Scene(world, cameraSettings, Color.LightSky);
     }
 
     public static Scene BookCover()
@@ -100,7 +100,7 @@ public static class TutorialScenes
         var timeTo = 1.0;
         var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, timeFrom, timeTo);
 
-        return new Scene(new BVHNode(world, timeFrom, timeTo), cameraSettings);
+        return new Scene(new BVHNode(world, timeFrom, timeTo), cameraSettings, Color.LightSky);
     }
 
     public static Scene CheckeredSpheres()
@@ -119,7 +119,7 @@ public static class TutorialScenes
         var focusDistance = 10.0;
 
         var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
-        return new Scene(world, cameraSettings);
+        return new Scene(world, cameraSettings, Color.LightSky);
     }
 
     public static Scene TwoPerlinSpheres()
@@ -138,10 +138,10 @@ public static class TutorialScenes
         var focusDistance = 10.0;
 
         var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
-        return new Scene(world, cameraSettings);
+        return new Scene(world, cameraSettings, Color.LightSky);
     }
 
-    public static Scene Rectangle()
+    public static Scene Light()
     {
         // World
         var world = new StructureList();
@@ -150,7 +150,8 @@ public static class TutorialScenes
         world.Add(new Sphere(new Point3(0, -1000, 0), 1000, new Lambertian(ground)));
         world.Add(new Sphere(new Point3(0, 2, 0), 2, new Lambertian(ground)));
 
-        world.Add(new XYRectangle(3, 5, 1, 3, -2, new Lambertian(Color.Red)));
+        var light = new DiffuseLight(4);
+        world.Add(new XYRectangle(3, 5, 1, 3, -2, light));
 
         // Camera
         var lookFrom = new Point3(26, 3, 6);
@@ -160,6 +161,6 @@ public static class TutorialScenes
         var focusDistance = 10.0;
 
         var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
-        return new Scene(world, cameraSettings);
+        return new Scene(world, cameraSettings, Color.Black);
     }
 }

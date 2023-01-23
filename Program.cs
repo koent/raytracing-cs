@@ -11,9 +11,9 @@ const int nofSamples = 16;
 const int maxDepth = 50;
 
 // Set up renderer
-var scene = TutorialScenes.Rectangle();
+var scene = TutorialScenes.Light();
 var camera = new Camera(scene.CameraSettings, aspectRatio);
-var renderer = new Renderer(scene.World, camera, maxDepth, imageWidth, imageHeight);
+var renderer = new Renderer(scene.World, camera, scene.Background, maxDepth, imageWidth, imageHeight);
 
 // Render
 var sw = new Stopwatch();

@@ -54,6 +54,8 @@ public struct Color
 
     public static Color Sky => new Color(0.5, 0.7, 1.0);
 
+    public static Color LightSky => new Color(0.7, 0.8, 1.0);
+
     public static Color Red => new Color(1.0, 0.0, 0.0);
 
     public static Color Blue => new Color(0.0, 0.0, 1.0);

@@ -11,14 +11,17 @@ public class Renderer
 
     public Camera Camera;
 
+    public Color Background;
+
     public int MaxDepth;
 
     public int ImageWidth, ImageHeight;
 
-    public Renderer(IStructure world, Camera camera, int maxDepth, int imageWidth, int imageHeight)
+    public Renderer(IStructure world, Camera camera, Color background, int maxDepth, int imageWidth, int imageHeight)
     {
         World = world;
         Camera = camera;
+        Background = background;
         MaxDepth = maxDepth;
         ImageWidth = imageWidth;
         ImageHeight = imageHeight;
@@ -39,7 +42,7 @@ public class Renderer
                     var u = (x + RandomHelper.Instance.NextDouble()) / (image.Width - 1);
                     var v = (y + RandomHelper.Instance.NextDouble()) / (image.Height - 1);
                     var ray = Camera.GetRay(u, v);
-                    pixelColor.Add(ImageFunctions.RayColor(ray, World, MaxDepth));
+                    pixelColor.Add(ImageFunctions.RayColor(ray, World, Background, MaxDepth));
                 }
 
                 image.Draw(x, y, pixelColor, nofSamples);
@@ -69,7 +72,7 @@ public class Renderer
         var u = (x + RandomHelper.Instance.NextDouble()) / (image.Width - 1);
         var v = (y + RandomHelper.Instance.NextDouble()) / (image.Height - 1);
         var ray = Camera.GetRay(u, v);
-        var color = ImageFunctions.RayColor(ray, World, MaxDepth);
+        var color = ImageFunctions.RayColor(ray, World, Background, MaxDepth);
         image.Draw(x, y, color);
     }
 }
