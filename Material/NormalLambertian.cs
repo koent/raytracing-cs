@@ -6,7 +6,7 @@ namespace Raytracer.Material;
 
 public class NormalLambertian : IMaterial
 {
-    public bool Scatter(Ray incoming, HitRecord hitRecord, out Color attenuation, out Ray scattered)
+    public ScatterRecord? Scatter(Ray incoming, HitRecord hitRecord)
     {
         var scatterDirection = hitRecord.Normal + Vec3.RandomUnitVector();
 
@@ -14,8 +14,8 @@ public class NormalLambertian : IMaterial
         if (scatterDirection.IsNearZero)
             scatterDirection = hitRecord.Normal;
 
-        scattered = new Ray(hitRecord.Point, scatterDirection, incoming.Time);
-        attenuation = new Color(0.5 * hitRecord.Normal.X + 0.5, 0.5 * hitRecord.Normal.Y + 0.5, 0.5 * hitRecord.Normal.Z + 0.5);
-        return true;
+        var scattered = new Ray(hitRecord.Point, scatterDirection, incoming.Time);
+        var attenuation = new Color(0.5 * hitRecord.Normal.X + 0.5, 0.5 * hitRecord.Normal.Y + 0.5, 0.5 * hitRecord.Normal.Z + 0.5);
+        return new ScatterRecord(attenuation, scattered);
     }
 }

@@ -16,11 +16,10 @@ public class Metal : IMaterial
         Fuzziness = Math.Min(fuzziness, 1.0);
     }
 
-    public bool Scatter(Ray incoming, HitRecord hitRecord, out Color attenuation, out Ray scattered)
+    public ScatterRecord? Scatter(Ray incoming, HitRecord hitRecord)
     {
         var reflected = incoming.Direction.UnitVector.Reflection(hitRecord.Normal);
-        scattered = new Ray(hitRecord.Point, reflected + Fuzziness*Vec3.RandomInUnitSphere(), incoming.Time);
-        attenuation = Albedo;
-        return Vec3.Dot(scattered.Direction, hitRecord.Normal) > 0.0;
+        var scattered = new Ray(hitRecord.Point, reflected + Fuzziness * Vec3.RandomInUnitSphere(), incoming.Time);
+        return Vec3.Dot(scattered.Direction, hitRecord.Normal) > 0.0 ? new ScatterRecord(Albedo, scattered) : null;
     }
 }

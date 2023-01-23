@@ -17,10 +17,9 @@ public static class ImageFunctions
         var hitRecord = world.Hit(ray, 0.001, new HitRecord());
         if (hitRecord.IsHit)
         {
-            Ray scattered;
-            Color attenuation;
-            if (hitRecord.Material.Scatter(ray, hitRecord, out attenuation, out scattered))
-                return attenuation * RayColor(scattered, world, depth - 1);
+            var scatterRecord = hitRecord.Material.Scatter(ray, hitRecord);
+            if (scatterRecord.HasValue)
+                return scatterRecord.Value.Attenuation * RayColor(scatterRecord.Value.Scattered, world, depth - 1);
             return Color.Black;
         }
 

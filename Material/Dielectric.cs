@@ -14,9 +14,8 @@ public class Dielectric : IMaterial
         RefractiveIndex = refractiveIndex;
     }
 
-    public bool Scatter(Ray incoming, HitRecord hitRecord, out Color attenuation, out Ray scattered)
+    public ScatterRecord? Scatter(Ray incoming, HitRecord hitRecord)
     {
-        attenuation = Color.White;
         double refractionRatio = hitRecord.FrontFace ? 1.0 / RefractiveIndex : RefractiveIndex;
         Vec3 unitDirection = incoming.Direction.UnitVector;
         double cosIncoming = Math.Min(Vec3.Dot(-unitDirection, hitRecord.Normal), 1.0);
@@ -27,8 +26,8 @@ public class Dielectric : IMaterial
             direction = unitDirection.Reflection(hitRecord.Normal);
         else
             direction = unitDirection.Refraction(hitRecord.Normal, refractionRatio);
-        scattered = new Ray(hitRecord.Point, direction, incoming.Time);
-        return true;
+        var scattered = new Ray(hitRecord.Point, direction, incoming.Time);
+        return new ScatterRecord(Color.White, scattered);
     }
 
     private static double Reflectance(double cosine, double refractionRatio)

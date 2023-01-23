@@ -16,7 +16,7 @@ public class Lambertian : IMaterial
         Albedo = texture;
     }
 
-    public bool Scatter(Ray incoming, HitRecord hitRecord, out Color attenuation, out Ray scattered)
+    public ScatterRecord? Scatter(Ray incoming, HitRecord hitRecord)
     {
         var scatterDirection = hitRecord.Normal + Vec3.RandomUnitVector();
 
@@ -24,8 +24,8 @@ public class Lambertian : IMaterial
         if (scatterDirection.IsNearZero)
             scatterDirection = hitRecord.Normal;
 
-        scattered = new Ray(hitRecord.Point, scatterDirection, incoming.Time);
-        attenuation = Albedo.Value(hitRecord.U, hitRecord.V, hitRecord.Point);
-        return true;
+        var scattered = new Ray(hitRecord.Point, scatterDirection, incoming.Time);
+        var attenuation = Albedo.Value(hitRecord.U, hitRecord.V, hitRecord.Point);
+        return new ScatterRecord(attenuation, scattered);
     }
 }
