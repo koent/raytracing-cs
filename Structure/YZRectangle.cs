@@ -36,7 +36,7 @@ public class YZRectangle : IStructure
         if (y < MinY || MaxY < y || z < MinZ || MaxZ < z)
             return previousHitRecord;
 
-        return new HitRecord(ray, t, p => new Vec3(1, 0, 1), UV, Material);
+        return new HitRecord(ray, t, p => new Vec3(1, 0, 0), UV, Material);
     }
 
     public BoundingBox? BoundingBox(double timeFrom, double timeTo) => new BoundingBox(new Point3(X - 0.0001, MinY, MinZ), new Point3(X + 0.0001, MaxY, MaxZ));
