@@ -7,7 +7,7 @@ using System.Diagnostics;
 const double aspectRatio = 1.0;
 const int imageWidth = 600;
 const int imageHeight = (int)(imageWidth / aspectRatio);
-const int nofSamples = 8;
+const int nofSamples = 16;
 const int maxDepth = 50;
 
 // Set up renderer

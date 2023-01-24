@@ -44,4 +44,10 @@ public struct HitRecord
         Material = material;
         IsHit = true;
     }
+
+    public void SetFaceNormal(Ray ray, Vec3 outwardNormal)
+    {
+        FrontFace = Vec3.Dot(ray.Direction, outwardNormal) < 0.0;
+        Normal = FrontFace ? outwardNormal : -outwardNormal;
+    }
 }
