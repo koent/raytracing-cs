@@ -181,6 +181,9 @@ public static class TutorialScenes
         world.Add(new XZRectangle(0, 555, 0, 555, 555, white));
         world.Add(new XYRectangle(0, 555, 0, 555, 555, white));
 
+        world.Add(new Box(new Point3(130, 0, 65), new Point3(295, 165, 230), white));
+        world.Add(new Box(new Point3(265, 0, 295), new Point3(430, 330, 460), white));
+
         // Camera
         var lookFrom = new Point3(278, 278, -800);
         var lookAt = new Point3(278, 278, 0);
