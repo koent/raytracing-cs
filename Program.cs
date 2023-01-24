@@ -4,14 +4,14 @@ using Raytracer.SceneConstruction;
 using System.Diagnostics;
 
 // Image settings
-const double aspectRatio = 16.0 / 9.0;
-const int imageWidth = 800;
+const double aspectRatio = 1.0;
+const int imageWidth = 600;
 const int imageHeight = (int)(imageWidth / aspectRatio);
-const int nofSamples = 16;
+const int nofSamples = 8;
 const int maxDepth = 50;
 
 // Set up renderer
-var scene = TutorialScenes.Light();
+var scene = TutorialScenes.CornellBox();
 var camera = new Camera(scene.CameraSettings, aspectRatio);
 var renderer = new Renderer(scene.World, camera, scene.Background, maxDepth, imageWidth, imageHeight);
 

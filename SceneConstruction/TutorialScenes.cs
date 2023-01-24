@@ -163,4 +163,32 @@ public static class TutorialScenes
         var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
         return new Scene(world, cameraSettings, Color.Black);
     }
+
+    public static Scene CornellBox()
+    {
+        // World
+        var world = new StructureList();
+
+        var red = new Lambertian(Color.CornellBoxRed);
+        var white = new Lambertian(Color.CornellBoxWhite);
+        var green = new Lambertian(Color.CornellBoxGreen);
+        var light = new DiffuseLight(15);
+
+        world.Add(new YZRectangle(0, 555, 0, 555, 555, green));
+        world.Add(new YZRectangle(0, 555, 0, 555, 0, red));
+        world.Add(new XZRectangle(213, 343, 227, 332, 554, light));
+        world.Add(new XZRectangle(0, 555, 0, 555, 0, white));
+        world.Add(new XZRectangle(0, 555, 0, 555, 555, white));
+        world.Add(new XYRectangle(0, 555, 0, 555, 555, white));
+
+        // Camera
+        var lookFrom = new Point3(278, 278, -800);
+        var lookAt = new Point3(278, 278, 0);
+        var fieldOfView = 40.0;
+        var aperture = 0.0;
+        var focusDistance = 10.0;
+
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
+        return new Scene(world, cameraSettings, Color.Black);
+    }
 }
