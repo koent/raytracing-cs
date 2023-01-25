@@ -1,3 +1,4 @@
+using Raytracer.Helpers;
 using Raytracer.Raytracing;
 using Raytracer.Vector;
 
@@ -41,13 +42,13 @@ public class BVHNode : IStructure
         Box = box.Value;
     }
 
-    public bool Hit(Ray incoming, double tMin, HitRecord hitRecord)
+    public bool Hit(Ray incoming, HitRecord hitRecord)
     {
-        if (!Box.Hit(incoming, tMin, hitRecord.T))
+        if (!Box.Hit(incoming, HelperFunctions.TMin, hitRecord.T))
             return false;
 
-        bool leftHit = Left.Hit(incoming, tMin, hitRecord);
-        bool rightHit = Right.Hit(incoming, tMin, hitRecord);
+        bool leftHit = Left.Hit(incoming, hitRecord);
+        bool rightHit = Right.Hit(incoming, hitRecord);
         return leftHit || rightHit;
     }
 

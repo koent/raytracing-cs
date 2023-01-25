@@ -16,10 +16,10 @@ public class Translation : IStructure
         Displacement = displacement;
     }
 
-    public bool Hit(Ray incoming, double tMin, HitRecord hitRecord)
+    public bool Hit(Ray incoming, HitRecord hitRecord)
     {
         var movedRay = new Ray(incoming.Origin - Displacement, incoming.Direction, incoming.Time);
-        if (!Structure.Hit(movedRay, tMin, hitRecord))
+        if (!Structure.Hit(movedRay, hitRecord))
             return false;
 
         hitRecord.Point += Displacement;

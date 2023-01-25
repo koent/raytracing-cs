@@ -1,3 +1,4 @@
+using Raytracer.Helpers;
 using Raytracer.Material;
 using Raytracer.Raytracing;
 using Raytracer.Structure.BVH;
@@ -29,7 +30,7 @@ public class MovingSphere : IStructure
 
     public Func<Point3, Vec3> Normal(double time) => (Point3 point) => new Vec3(Center(time), point) / Radius;
 
-    public bool Hit(Ray ray, double tMin, HitRecord hitRecord)
+    public bool Hit(Ray ray, HitRecord hitRecord)
     {
         var centerToOrigin = new Vec3(Center(ray.Time), ray.Origin);
         var a = ray.Direction.LengthSquared;
@@ -43,10 +44,10 @@ public class MovingSphere : IStructure
 
         // Find nearest intersection between tMin and tMax
         var intersection = (-half_b - rootDiscriminant) / a;
-        if (intersection < tMin || hitRecord.T < intersection)
+        if (intersection < HelperFunctions.TMin || hitRecord.T < intersection)
         {
             intersection = (-half_b + rootDiscriminant) / a;
-            if (intersection < tMin || hitRecord.T < intersection)
+            if (intersection < HelperFunctions.TMin || hitRecord.T < intersection)
                 return false;
         }
 

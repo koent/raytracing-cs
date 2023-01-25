@@ -1,3 +1,4 @@
+using Raytracer.Helpers;
 using Raytracer.Material;
 using Raytracer.Raytracing;
 using Raytracer.Structure.BVH;
@@ -25,10 +26,10 @@ public class XZRectangle : IStructure
         Material = material;
     }
 
-    public bool Hit(Ray ray, double tMin, HitRecord hitRecord)
+    public bool Hit(Ray ray, HitRecord hitRecord)
     {
         var t = (Y - ray.Origin.Y) / ray.Direction.Y;
-        if (t < tMin || hitRecord.T < t)
+        if (t < HelperFunctions.TMin || hitRecord.T < t)
             return false;
 
         var x = ray.Origin.X + t * ray.Direction.X;

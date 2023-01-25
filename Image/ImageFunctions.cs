@@ -15,7 +15,7 @@ public static class ImageFunctions
             return Color.Black;
 
         var hitRecord = new HitRecord();
-        if (!world.Hit(ray, 0.001, hitRecord))
+        if (!world.Hit(ray, hitRecord))
             return background;
 
         var scatterRecord = hitRecord.Material.Scatter(ray, hitRecord);

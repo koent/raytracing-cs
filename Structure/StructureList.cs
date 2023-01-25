@@ -21,11 +21,11 @@ public class StructureList : IStructure
 
     public void Add(IStructure structure) => Structures.Add(structure);
 
-    public bool Hit(Ray ray, double tMin, HitRecord hitRecord)
+    public bool Hit(Ray ray, HitRecord hitRecord)
     {
         var result = false;
         foreach (var structure in Structures)
-            result |= structure.Hit(ray, tMin, hitRecord);
+            result |= structure.Hit(ray, hitRecord);
 
         return result;
     }
