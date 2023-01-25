@@ -16,17 +16,15 @@ public class Translation : IStructure
         Displacement = displacement;
     }
 
-    public HitRecord Hit(Ray incoming, double tMin, HitRecord previousHitRecord)
+    public bool Hit(Ray incoming, double tMin, HitRecord hitRecord)
     {
         var movedRay = new Ray(incoming.Origin - Displacement, incoming.Direction, incoming.Time);
-        var hitRecord = Structure.Hit(movedRay, tMin, previousHitRecord);
-        // Ugly hack to check whether the previous call improved
-        if (previousHitRecord.T == hitRecord.T)
-            return previousHitRecord;
+        if (!Structure.Hit(movedRay, tMin, hitRecord))
+            return false;
 
         hitRecord.Point += Displacement;
         hitRecord.SetFaceNormal(movedRay, hitRecord.Normal);
-        return hitRecord;
+        return true;
     }
 
     public BoundingBox? BoundingBox(double timeFrom, double timeTo)

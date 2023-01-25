@@ -4,7 +4,7 @@ using Raytracer.Vector;
 
 namespace Raytracer.Structure;
 
-public struct HitRecord
+public class HitRecord
 {
     public double T;
 
@@ -18,13 +18,9 @@ public struct HitRecord
 
     public IMaterial Material;
 
-    public bool IsHit;
-
     public HitRecord()
     {
         T = double.PositiveInfinity;
-        IsHit = false;
-
         Point = default;
         Normal = default;
         FrontFace = default;
@@ -33,8 +29,11 @@ public struct HitRecord
         V = default;
     }
 
-    public HitRecord(Ray ray, double intersection, Func<Point3, Vec3> normalCalculation, Func<Vec3, (double, double)> uv, IMaterial material)
+    public void Update(Ray ray, double intersection, Func<Point3, Vec3> normalCalculation, Func<Vec3, (double, double)> uv, IMaterial material)
     {
+        if (intersection > T)
+            throw new Exception($"{nameof(HitRecord)} updated with non-improved hit");
+        
         T = intersection;
         Point = ray.At(intersection);
         var outwardNormal = normalCalculation(Point);
@@ -42,7 +41,6 @@ public struct HitRecord
         Normal = FrontFace ? outwardNormal : -outwardNormal;
         (U, V) = uv(outwardNormal);
         Material = material;
-        IsHit = true;
     }
 
     public void SetFaceNormal(Ray ray, Vec3 outwardNormal)

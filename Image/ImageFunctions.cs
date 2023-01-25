@@ -14,8 +14,8 @@ public static class ImageFunctions
         if (depth <= 0)
             return Color.Black;
 
-        var hitRecord = world.Hit(ray, 0.001, new HitRecord());
-        if (!hitRecord.IsHit)
+        var hitRecord = new HitRecord();
+        if (!world.Hit(ray, 0.001, hitRecord))
             return background;
 
         var scatterRecord = hitRecord.Material.Scatter(ray, hitRecord);

@@ -41,15 +41,14 @@ public class BVHNode : IStructure
         Box = box.Value;
     }
 
-    public HitRecord Hit(Ray incoming, double tMin, HitRecord hitRecord)
+    public bool Hit(Ray incoming, double tMin, HitRecord hitRecord)
     {
         if (!Box.Hit(incoming, tMin, hitRecord.T))
-            return hitRecord;
+            return false;
 
-        hitRecord = Left.Hit(incoming, tMin, hitRecord);
-        hitRecord = Right.Hit(incoming, tMin, hitRecord);
-
-        return hitRecord;
+        bool leftHit = Left.Hit(incoming, tMin, hitRecord);
+        bool rightHit = Right.Hit(incoming, tMin, hitRecord);
+        return leftHit || rightHit;
     }
 
     public BoundingBox? BoundingBox(double timeFrom, double timeTo) => Box;

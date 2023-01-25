@@ -26,7 +26,7 @@ public class Box : IStructure
         Sides.Add(new YZRectangle(minimum.Y, maximum.Y, minimum.Z, maximum.Z, minimum.X, material));
     }
 
-    public HitRecord Hit(Ray ray, double tMin, HitRecord previousHitRecord) => Sides.Hit(ray, tMin, previousHitRecord);
+    public bool Hit(Ray ray, double tMin, HitRecord hitRecord) => Sides.Hit(ray, tMin, hitRecord);
 
     public BoundingBox? BoundingBox(double timeFrom, double timeTo) => new BoundingBox(Minimum, Maximum);
 }

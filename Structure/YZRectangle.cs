@@ -25,18 +25,19 @@ public class YZRectangle : IStructure
         Material = material;
     }
 
-    public HitRecord Hit(Ray ray, double tMin, HitRecord previousHitRecord)
+    public bool Hit(Ray ray, double tMin, HitRecord hitRecord)
     {
         var t = (X - ray.Origin.X) / ray.Direction.X;
-        if (t < tMin || previousHitRecord.T < t)
-            return previousHitRecord;
+        if (t < tMin || hitRecord.T < t)
+            return false;
 
         var y = ray.Origin.Y + t * ray.Direction.Y;
         var z = ray.Origin.Z + t * ray.Direction.Z;
         if (y < MinY || MaxY < y || z < MinZ || MaxZ < z)
-            return previousHitRecord;
+            return false;
 
-        return new HitRecord(ray, t, p => new Vec3(1, 0, 0), UV, Material);
+        hitRecord.Update(ray, t, p => new Vec3(1, 0, 0), UV, Material);
+        return true;
     }
 
     public BoundingBox? BoundingBox(double timeFrom, double timeTo) => new BoundingBox(new Point3(X - 0.0001, MinY, MinZ), new Point3(X + 0.0001, MaxY, MaxZ));
