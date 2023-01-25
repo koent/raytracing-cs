@@ -3,6 +3,7 @@ using Raytracer.Material;
 using Raytracer.Raytracing;
 using Raytracer.Structure;
 using Raytracer.Structure.BVH;
+using Raytracer.Structure.Transformation;
 using Raytracer.Texture;
 using Raytracer.Vector;
 
@@ -181,8 +182,10 @@ public static class TutorialScenes
         world.Add(new XZRectangle(0, 555, 0, 555, 555, white));
         world.Add(new XYRectangle(0, 555, 0, 555, 555, white));
 
-        world.Add(new Box(new Point3(130, 0, 65), new Point3(295, 165, 230), white));
-        world.Add(new Box(new Point3(265, 0, 295), new Point3(430, 330, 460), white));
+        // world.Add(new Box(new Point3(130, 0, 65), new Point3(295, 165, 230), white));
+        // world.Add(new Box(new Point3(265, 0, 295), new Point3(430, 330, 460), white));
+        world.Add(new Box(new Point3(0, 0, 0), new Point3(165, 330, 165), white).RotateY(15).Translate(new Vec3(265, 0, 295)));
+        world.Add(new Box(new Point3(0, 0, 0), new Point3(165, 165, 165), white).RotateY(-18).Translate(new Vec3(130, 0, 65)));
 
         // Camera
         var lookFrom = new Point3(278, 278, -800);

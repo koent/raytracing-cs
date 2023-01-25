@@ -11,4 +11,6 @@ public static class TransofrmationExtensions
     public static IStructure TranslateY(this IStructure structure, double displacement) => new Translation(structure, new Vec3(0, displacement, 0));
 
     public static IStructure TranslateZ(this IStructure structure, double displacement) => new Translation(structure, new Vec3(0, 0, displacement));
+
+    public static IStructure RotateY(this IStructure structure, double angle) => new YRotation(structure, angle);
 }
