@@ -13,10 +13,7 @@ public class DiffuseLight : IMaterial
 
     public DiffuseLight(Color color, double strength = 1.0) : this(new SolidColor(strength * color)) { }
 
-    public DiffuseLight(ITexture texture)
-    {
-        Emit = texture;
-    }
+    public DiffuseLight(ITexture texture) => Emit = texture;
 
     public ScatterRecord? Scatter(Ray incoming, HitRecord hitRecord) => null;
 

@@ -1,5 +1,5 @@
-using Raytracer.Image;
 using Raytracer.Helpers;
+using Raytracer.Image;
 using Raytracer.Structure;
 using Raytracer.Vector;
 
@@ -30,14 +30,14 @@ public class Renderer
     public PPMImage LineRender(int nofSamples)
     {
         var image = new PPMImage(ImageWidth, ImageHeight);
-        for (int y = 0; y < image.Height; y++)
+        for (var y = 0; y < image.Height; y++)
         {
             Console.Error.Write($"\rLines remaining: {image.Height - y - 1,3}");
 
-            for (int x = 0; x < image.Width; x++)
+            for (var x = 0; x < image.Width; x++)
             {
                 var pixelColor = new Color();
-                for (int sample = 0; sample < nofSamples; sample++)
+                for (var sample = 0; sample < nofSamples; sample++)
                 {
                     var u = (x + RandomHelper.Instance.NextDouble()) / (image.Width - 1);
                     var v = (y + RandomHelper.Instance.NextDouble()) / (image.Height - 1);
@@ -60,8 +60,8 @@ public class Renderer
     {
         Console.Error.Write($"\rSample {sample + 1,3} of {nofSamples}");
         var image = new PPMImage(ImageWidth, ImageHeight);
-        for (int y = 0; y < image.Height; y++)
-            for (int x = 0; x < image.Width; x++)
+        for (var y = 0; y < image.Height; y++)
+            for (var x = 0; x < image.Width; x++)
                 RenderPixel(image, x, y);
 
         return image;

@@ -1,6 +1,6 @@
 using Raytracer.Raytracing;
-using Raytracer.Vector;
 using Raytracer.Structure;
+using Raytracer.Vector;
 
 namespace Raytracer.Material;
 

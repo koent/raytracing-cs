@@ -29,7 +29,7 @@ public class BVHNode : IStructure
                 break;
             default:
                 var sorted = structures.OrderBy(key);
-                int mid = structures.Length / 2;
+                var mid = structures.Length / 2;
                 Left = new BVHNode(structures[..mid].ToArray(), timeFrom, timeTo, depth + 1);
                 Right = new BVHNode(structures[mid..].ToArray(), timeFrom, timeTo, depth + 1);
                 break;
@@ -47,8 +47,8 @@ public class BVHNode : IStructure
         if (!Box.Hit(incoming, HelperFunctions.TMin, hitRecord.T))
             return false;
 
-        bool leftHit = Left.Hit(incoming, hitRecord);
-        bool rightHit = Right.Hit(incoming, hitRecord);
+        var leftHit = Left.Hit(incoming, hitRecord);
+        var rightHit = Right.Hit(incoming, hitRecord);
         return leftHit || rightHit;
     }
 

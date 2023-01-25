@@ -28,11 +28,11 @@ public class YRotation : IStructure
         var maximum = new Point3(double.NegativeInfinity, double.NegativeInfinity, double.NegativeInfinity);
         var box = innerBoundingBox.Value;
 
-        for (int i = 0; i < 2; i++)
+        for (var i = 0; i < 2; i++)
         {
-            for (int j = 0; j < 2; j++)
+            for (var j = 0; j < 2; j++)
             {
-                for (int k = 0; k < 2; k++)
+                for (var k = 0; k < 2; k++)
                 {
                     var x = i * box.Maximum.X + (1 - i) * box.Minimum.X;
                     var y = j * box.Maximum.Y + (1 - j) * box.Minimum.Y;

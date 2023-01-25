@@ -24,7 +24,7 @@ public class CameraSettings
         TimeFrom = timeFrom;
         TimeTo = timeTo;
     }
-    
+
     public CameraSettings(Point3 lookFrom, Point3 lookAt, double fieldOfView, double aperture, double focusDistance, double timeFrom, double timeTo)
     {
         LookFrom = lookFrom;

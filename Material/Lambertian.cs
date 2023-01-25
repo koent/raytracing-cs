@@ -11,10 +11,7 @@ public class Lambertian : IMaterial
 
     public Lambertian(Color color) : this(new SolidColor(color)) { }
 
-    public Lambertian(ITexture texture)
-    {
-        Albedo = texture;
-    }
+    public Lambertian(ITexture texture) => Albedo = texture;
 
     public ScatterRecord? Scatter(Ray incoming, HitRecord hitRecord)
     {

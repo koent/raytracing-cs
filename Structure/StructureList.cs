@@ -7,15 +7,9 @@ public class StructureList : IStructure
 {
     private List<IStructure> Structures;
 
-    public StructureList()
-    {
-        Structures = new List<IStructure>();
-    }
+    public StructureList() => Structures = new List<IStructure>();
 
-    public StructureList(IStructure structure)
-    {
-        Structures = new List<IStructure> { structure };
-    }
+    public StructureList(IStructure structure) => Structures = new List<IStructure> { structure };
 
     public void Clear() => Structures.Clear();
 

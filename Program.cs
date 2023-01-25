@@ -1,7 +1,7 @@
-﻿using Raytracer.Image;
+using System.Diagnostics;
+using Raytracer.Image;
 using Raytracer.Raytracing;
 using Raytracer.SceneConstruction;
-using System.Diagnostics;
 
 // Image settings
 const double aspectRatio = 1.0;
@@ -18,7 +18,7 @@ var renderer = new Renderer(scene.World, camera, scene.Background, maxDepth, ima
 // Render
 var sw = new Stopwatch();
 sw.Start();
-PPMImage image = renderer.ParallelRender(nofSamples);
+var image = renderer.ParallelRender(nofSamples);
 sw.Stop();
 Console.Error.WriteLine();
 Console.Error.WriteLine($"Elapsed time: {sw.Elapsed}");

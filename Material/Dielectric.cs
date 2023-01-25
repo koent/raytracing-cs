@@ -9,17 +9,14 @@ public class Dielectric : IMaterial
 {
     public double RefractiveIndex;
 
-    public Dielectric(double refractiveIndex)
-    {
-        RefractiveIndex = refractiveIndex;
-    }
+    public Dielectric(double refractiveIndex) => RefractiveIndex = refractiveIndex;
 
     public ScatterRecord? Scatter(Ray incoming, HitRecord hitRecord)
     {
-        double refractionRatio = hitRecord.FrontFace ? 1.0 / RefractiveIndex : RefractiveIndex;
-        Vec3 unitDirection = incoming.Direction.UnitVector;
-        double cosIncoming = Math.Min(Vec3.Dot(-unitDirection, hitRecord.Normal), 1.0);
-        double sinIncoming = Math.Sqrt(1.0 - cosIncoming * cosIncoming);
+        var refractionRatio = hitRecord.FrontFace ? 1.0 / RefractiveIndex : RefractiveIndex;
+        var unitDirection = incoming.Direction.UnitVector;
+        var cosIncoming = Math.Min(Vec3.Dot(-unitDirection, hitRecord.Normal), 1.0);
+        var sinIncoming = Math.Sqrt(1.0 - cosIncoming * cosIncoming);
 
         Vec3 direction;
         if (refractionRatio * sinIncoming > 1.0 || Reflectance(cosIncoming, refractionRatio) > RandomHelper.Instance.NextDouble())

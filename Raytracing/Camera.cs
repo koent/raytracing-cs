@@ -23,10 +23,10 @@ public class Camera
 
     public Camera(Point3 lookFrom, Point3 lookAt, Vec3 up, double fieldOfView, double aspectRatio, double aperture, double focusDistance, double timeFrom, double timeTo)
     {
-        double theta = HelperFunctions.DegreesToRadians(fieldOfView);
-        double h = Math.Tan(theta / 2.0);
-        double viewportHeight = 2.0 * h;
-        double viewportWidth = aspectRatio * viewportHeight;
+        var theta = HelperFunctions.DegreesToRadians(fieldOfView);
+        var h = Math.Tan(theta / 2.0);
+        var viewportHeight = 2.0 * h;
+        var viewportWidth = aspectRatio * viewportHeight;
 
         W = -new Vec3(lookFrom, lookAt).UnitVector;
         U = Vec3.Cross(up, W).UnitVector;
@@ -44,8 +44,8 @@ public class Camera
 
     public Ray GetRay(double u, double v)
     {
-        Vec3 standardOffset = LensRadius * Vec3.RandomInUnitDisk();
-        Vec3 offset = U * standardOffset.X + U * standardOffset.Y;
+        var standardOffset = LensRadius * Vec3.RandomInUnitDisk();
+        var offset = U * standardOffset.X + U * standardOffset.Y;
         var direction = new Vec3(Origin + offset, LowerLeftCorner + u * Horizontal + v * Vertical);
         return new Ray(Origin + offset, direction, RandomHelper.Instance.NextDouble(TimeFrom, TimeTo));
     }

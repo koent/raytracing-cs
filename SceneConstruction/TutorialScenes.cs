@@ -37,7 +37,7 @@ public static class TutorialScenes
 
     public static Scene BookCover()
     {
-        bool moving = true;
+        var moving = true;
 
         // World
         var random = RandomHelper.Instance;
@@ -47,9 +47,9 @@ public static class TutorialScenes
         var materialGround = new Lambertian(checker);
         world.Add(new Sphere(new Point3(0, -1000, 0), 1000, materialGround));
 
-        for (int a = -11; a < 11; a++)
+        for (var a = -11; a < 11; a++)
         {
-            for (int b = -11; b < 11; b++)
+            for (var b = -11; b < 11; b++)
             {
                 var selectMaterial = random.NextDouble();
                 var center = new Point3(a + 0.9 * random.NextDouble(), 0.2, b + 0.9 * random.NextDouble());

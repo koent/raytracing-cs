@@ -33,7 +33,7 @@ public class HitRecord
     {
         if (intersection > T)
             throw new Exception($"{nameof(HitRecord)} updated with non-improved hit");
-        
+
         T = intersection;
         Point = ray.At(intersection);
         var outwardNormal = normalCalculation(Point);

@@ -68,7 +68,7 @@ public struct Vec3
 
     public static Vec3 RandomInUnitHemisphere(Vec3 normal)
     {
-        Vec3 inUnitSphere = RandomInUnitSphere();
+        var inUnitSphere = RandomInUnitSphere();
         return Dot(inUnitSphere, normal) > 0.0 ? inUnitSphere : -inUnitSphere;
     }
 
