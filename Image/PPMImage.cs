@@ -37,9 +37,9 @@ public class PPMImage
 
     private static string ToPPMLine(Color color)
     {
-        var r = (int)(Math.Sqrt(color.R) * 255.999);
-        var g = (int)(Math.Sqrt(color.G) * 255.999);
-        var b = (int)(Math.Sqrt(color.B) * 255.999);
+        var r = Clamp(Math.Sqrt(color.R) * 255.999);
+        var g = Clamp(Math.Sqrt(color.G) * 255.999);
+        var b = Clamp(Math.Sqrt(color.B) * 255.999);
         return $"{r} {g} {b}";
     }
 
@@ -55,4 +55,8 @@ public class PPMImage
 
         return result;
     }
+
+    private static int Clamp(double value) => Clamp((int)value);
+
+    private static int Clamp(int value) => value < 0 ? 0 : (value > 255 ? 255 : value);
 }
