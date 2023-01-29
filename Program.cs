@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Raytracer.Image;
 using Raytracer.Raytracing;
 using Raytracer.SceneConstruction;
 
@@ -21,4 +22,4 @@ var image = renderer.ParallelRender(nofSamples);
 sw.Stop();
 Console.Error.WriteLine();
 Console.Error.WriteLine($"Elapsed time: {sw.Elapsed}");
-Console.WriteLine(image);
+image.Save<PPM>();

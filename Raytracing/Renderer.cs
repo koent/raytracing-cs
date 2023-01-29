@@ -27,9 +27,9 @@ public class Renderer
         ImageHeight = imageHeight;
     }
 
-    public PPMImage LineRender(int nofSamples)
+    public ImageData LineRender(int nofSamples)
     {
-        var image = new PPMImage(ImageWidth, ImageHeight);
+        var image = new ImageData(ImageWidth, ImageHeight);
         for (var y = 0; y < image.Height; y++)
         {
             Console.Error.Write($"\rLines remaining: {image.Height - y - 1,3}");
@@ -52,14 +52,14 @@ public class Renderer
         return image;
     }
 
-    public PPMImage SampleRender(int nofSamples) => PPMImage.Combine(Enumerable.Range(0, nofSamples).Select(s => SingleRender(s, nofSamples)).ToArray());
+    public ImageData SampleRender(int nofSamples) => ImageData.Combine(Enumerable.Range(0, nofSamples).Select(s => SingleRender(s, nofSamples)).ToArray());
 
-    public PPMImage ParallelRender(int nofSamples) => PPMImage.Combine(Enumerable.Range(0, nofSamples).AsParallel().Select(s => SingleRender(s, nofSamples)).ToArray());
+    public ImageData ParallelRender(int nofSamples) => ImageData.Combine(Enumerable.Range(0, nofSamples).AsParallel().Select(s => SingleRender(s, nofSamples)).ToArray());
 
-    private PPMImage SingleRender(int sample, int nofSamples)
+    private ImageData SingleRender(int sample, int nofSamples)
     {
         Console.Error.Write($"\rSample {sample + 1,3} of {nofSamples}");
-        var image = new PPMImage(ImageWidth, ImageHeight);
+        var image = new ImageData(ImageWidth, ImageHeight);
         for (var y = 0; y < image.Height; y++)
             for (var x = 0; x < image.Width; x++)
                 RenderPixel(image, x, y);
@@ -67,7 +67,7 @@ public class Renderer
         return image;
     }
 
-    private void RenderPixel(PPMImage image, int x, int y)
+    private void RenderPixel(ImageData image, int x, int y)
     {
         var u = (x + RandomHelper.Instance.NextDouble()) / (image.Width - 1);
         var v = (y + RandomHelper.Instance.NextDouble()) / (image.Height - 1);
