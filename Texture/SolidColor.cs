@@ -1,5 +1,6 @@
-using Raytracer.Texture;
 using Raytracer.Vector;
+
+namespace Raytracer.Texture;
 
 public class SolidColor : ITexture
 {

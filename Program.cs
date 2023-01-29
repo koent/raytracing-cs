@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using Raytracer.Image;
 using Raytracer.Raytracing;
 using Raytracer.SceneConstruction;
 
