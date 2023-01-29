@@ -22,4 +22,4 @@ var image = renderer.ParallelRender(nofSamples);
 sw.Stop();
 Console.Error.WriteLine();
 Console.Error.WriteLine($"Elapsed time: {sw.Elapsed}");
-image.Save<PPM>();
+image.Save<PPM>("image");

@@ -11,7 +11,7 @@ We follow the book series 'Raytracing In One Weekend', but in C#.
 
 ## Usage
 ```bash
-dotnet run > image.ppm
+dotnet run
 feh image.ppm
 ```
 

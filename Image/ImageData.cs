@@ -36,5 +36,5 @@ public class ImageData
         return result;
     }
 
-    public void Save<ImageFormat>() where ImageFormat : IImageFormat, new() => new ImageFormat().Save(this);
+    public void Save<ImageFormat>(string filename) where ImageFormat : IImageFormat, new() => new ImageFormat().Save(this, filename);
 }
