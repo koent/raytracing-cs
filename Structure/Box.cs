@@ -28,5 +28,5 @@ public class Box : IStructure
 
     public bool Hit(Ray ray, HitRecord hitRecord) => Sides.Hit(ray, hitRecord);
 
-    public BoundingBox? BoundingBox(double timeFrom, double timeTo) => new BoundingBox(Minimum, Maximum);
+    public BoundingBox? BoundingBox() => new BoundingBox(Minimum, Maximum);
 }

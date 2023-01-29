@@ -12,29 +12,21 @@ public class CameraSettings
 
     public double FocusDistance;
 
-    public double TimeFrom, TimeTo;
-
-    public CameraSettings(Point3 lookFrom, Point3 lookAt, double fieldOfView, double aperture, double timeFrom, double timeTo)
+    public CameraSettings(Point3 lookFrom, Point3 lookAt, double fieldOfView, double aperture)
     {
         LookFrom = lookFrom;
         LookAt = lookAt;
         FieldOfView = fieldOfView;
         Aperture = aperture;
         FocusDistance = new Vec3(lookFrom, lookAt).Length;
-        TimeFrom = timeFrom;
-        TimeTo = timeTo;
     }
 
-    public CameraSettings(Point3 lookFrom, Point3 lookAt, double fieldOfView, double aperture, double focusDistance, double timeFrom, double timeTo)
+    public CameraSettings(Point3 lookFrom, Point3 lookAt, double fieldOfView, double aperture, double focusDistance)
     {
         LookFrom = lookFrom;
         LookAt = lookAt;
         FieldOfView = fieldOfView;
         Aperture = aperture;
         FocusDistance = focusDistance;
-        TimeFrom = timeFrom;
-        TimeTo = timeTo;
     }
-
-
 }

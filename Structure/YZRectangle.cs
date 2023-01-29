@@ -41,7 +41,7 @@ public class YZRectangle : IStructure
         return true;
     }
 
-    public BoundingBox? BoundingBox(double timeFrom, double timeTo) => new BoundingBox(new Point3(X - 0.0001, MinY, MinZ), new Point3(X + 0.0001, MaxY, MaxZ));
+    public BoundingBox? BoundingBox() => new BoundingBox(new Point3(X - 0.0001, MinY, MinZ), new Point3(X + 0.0001, MaxY, MaxZ));
 
     private (double, double) UV(Vec3 vector) => ((vector.Y - MinY) / (MaxY - MinY), (vector.Z - MinZ) / (MaxZ - MinZ));
 }

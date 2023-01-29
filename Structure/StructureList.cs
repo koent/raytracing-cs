@@ -24,7 +24,7 @@ public class StructureList : IStructure
         return result;
     }
 
-    public BoundingBox? BoundingBox(double timeFrom, double timeTo) => Structures.Select(s => s.BoundingBox(timeFrom, timeTo)).Aggregate((l, r) => l + r);
+    public BoundingBox? BoundingBox() => Structures.Select(s => s.BoundingBox()).Aggregate((l, r) => l + r);
 
     public IStructure[] AsArray => Structures.ToArray();
 }

@@ -7,5 +7,5 @@ public interface IStructure
 {
     public bool Hit(Ray ray, HitRecord hitRecord);
 
-    public BoundingBox? BoundingBox(double timeFrom, double timeTo);
+    public BoundingBox? BoundingBox();
 }

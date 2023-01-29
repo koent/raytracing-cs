@@ -30,15 +30,13 @@ public static class TutorialScenes
         // Camera
         var lookFrom = new Point3(-2.0, 2.0, 1.0);
         var lookAt = new Point3(0.0, 0.0, -1.0);
-        var cameraSettings = new CameraSettings(lookFrom, lookAt, 40, 0.05, 0.0, 0.0);
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, 40, 0.05);
 
         return new Scene(world, cameraSettings, Color.LightSky);
     }
 
     public static Scene BookCover()
     {
-        var moving = true;
-
         // World
         var random = RandomHelper.Instance;
         var world = new StructureList();
@@ -61,8 +59,7 @@ public static class TutorialScenes
                         // Diffuse
                         var albedo = Color.Random() * Color.Random();
                         materialSphere = new Lambertian(albedo);
-                        var centerTo = center + new Vec3(0, random.NextDouble(0, 0.5), 0);
-                        world.Add(new MovingSphere(center, moving ? centerTo : center, 0.0, 1.0, 0.2, materialSphere));
+                        world.Add(new Sphere(center, 0.2, materialSphere));
                     }
                     else if (selectMaterial < 0.95)
                     {
@@ -97,11 +94,9 @@ public static class TutorialScenes
         var fieldOfView = 20.0;
         var aperture = 0.1;
         var focusDistance = 10.0;
-        var timeFrom = 0.0;
-        var timeTo = 1.0;
-        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, timeFrom, timeTo);
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance);
 
-        return new Scene(new BVHNode(world, timeFrom, timeTo), cameraSettings, Color.LightSky);
+        return new Scene(new BVHNode(world), cameraSettings, Color.LightSky);
     }
 
     public static Scene CheckeredSpheres()
@@ -119,7 +114,7 @@ public static class TutorialScenes
         var aperture = 0.0;
         var focusDistance = 10.0;
 
-        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance);
         return new Scene(world, cameraSettings, Color.LightSky);
     }
 
@@ -138,7 +133,7 @@ public static class TutorialScenes
         var aperture = 0.0;
         var focusDistance = 10.0;
 
-        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance);
         return new Scene(world, cameraSettings, Color.LightSky);
     }
 
@@ -157,7 +152,7 @@ public static class TutorialScenes
         var aperture = 0.0;
         var focusDistance = 10.0;
 
-        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance);
         return new Scene(world, cameraSettings, Color.LightSky);
     }
 
@@ -180,7 +175,7 @@ public static class TutorialScenes
         var aperture = 0.0;
         var focusDistance = 10.0;
 
-        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance);
         return new Scene(world, cameraSettings, Color.Black);
     }
 
@@ -201,8 +196,6 @@ public static class TutorialScenes
         world.Add(new XZRectangle(0, 555, 0, 555, 555, white));
         world.Add(new XYRectangle(0, 555, 0, 555, 555, white));
 
-        // world.Add(new Box(new Point3(130, 0, 65), new Point3(295, 165, 230), white));
-        // world.Add(new Box(new Point3(265, 0, 295), new Point3(430, 330, 460), white));
         world.Add(new Box(new Point3(0, 0, 0), new Point3(165, 330, 165), white).RotateY(15).Translate(new Vec3(265, 0, 295)));
         world.Add(new Box(new Point3(0, 0, 0), new Point3(165, 165, 165), white).RotateY(-18).Translate(new Vec3(130, 0, 65)));
 
@@ -213,7 +206,7 @@ public static class TutorialScenes
         var aperture = 0.0;
         var focusDistance = 10.0;
 
-        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance);
         return new Scene(world, cameraSettings, Color.Black);
     }
 
@@ -247,7 +240,7 @@ public static class TutorialScenes
         var aperture = 0.0;
         var focusDistance = 10.0;
 
-        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance);
         return new Scene(world, cameraSettings, Color.Black);
     }
 }

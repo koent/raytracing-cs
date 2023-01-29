@@ -20,7 +20,7 @@ public class YRotation : IStructure
         var θ = HelperFunctions.DegreesToRadians(angle);
         Sinθ = Math.Sin(θ);
         Cosθ = Math.Cos(θ);
-        var innerBoundingBox = Structure.BoundingBox(0, 1);
+        var innerBoundingBox = Structure.BoundingBox();
         if (!innerBoundingBox.HasValue)
             return;
 
@@ -52,7 +52,7 @@ public class YRotation : IStructure
     {
         var rotatedOrigin = new Point3(Cosθ * ray.Origin.X - Sinθ * ray.Origin.Z, ray.Origin.Y, Sinθ * ray.Origin.X + Cosθ * ray.Origin.Z);
         var rotatedDirection = new Vec3(Cosθ * ray.Direction.X - Sinθ * ray.Direction.Z, ray.Direction.Y, Sinθ * ray.Direction.X + Cosθ * ray.Direction.Z);
-        var rotatedRay = new Ray(rotatedOrigin, rotatedDirection, ray.Time);
+        var rotatedRay = new Ray(rotatedOrigin, rotatedDirection);
         if (!Structure.Hit(rotatedRay, hitRecord))
             return false;
 
@@ -64,5 +64,5 @@ public class YRotation : IStructure
         return true;
     }
 
-    public BoundingBox? BoundingBox(double timeFrom, double timeTo) => OuterBoundingBox;
+    public BoundingBox? BoundingBox() => OuterBoundingBox;
 }

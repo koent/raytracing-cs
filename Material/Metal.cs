@@ -19,7 +19,7 @@ public class Metal : IMaterial
     public ScatterRecord? Scatter(Ray incoming, HitRecord hitRecord)
     {
         var reflected = incoming.Direction.UnitVector.Reflection(hitRecord.Normal);
-        var scattered = new Ray(hitRecord.Point, reflected + Fuzziness * Vec3.RandomInUnitSphere(), incoming.Time);
+        var scattered = new Ray(hitRecord.Point, reflected + Fuzziness * Vec3.RandomInUnitSphere());
         return Vec3.Dot(scattered.Direction, hitRecord.Normal) > 0.0 ? new ScatterRecord(Albedo, scattered) : null;
     }
 }

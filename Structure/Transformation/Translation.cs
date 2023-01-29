@@ -18,7 +18,7 @@ public class Translation : IStructure
 
     public bool Hit(Ray incoming, HitRecord hitRecord)
     {
-        var movedRay = new Ray(incoming.Origin - Displacement, incoming.Direction, incoming.Time);
+        var movedRay = new Ray(incoming.Origin - Displacement, incoming.Direction);
         if (!Structure.Hit(movedRay, hitRecord))
             return false;
 
@@ -27,9 +27,9 @@ public class Translation : IStructure
         return true;
     }
 
-    public BoundingBox? BoundingBox(double timeFrom, double timeTo)
+    public BoundingBox? BoundingBox()
     {
-        var innerBox = Structure.BoundingBox(timeFrom, timeTo);
+        var innerBox = Structure.BoundingBox();
         if (!innerBox.HasValue)
             return null;
 

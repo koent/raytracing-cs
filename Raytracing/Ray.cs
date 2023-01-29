@@ -8,13 +8,10 @@ public struct Ray
 
     public Vec3 Direction;
 
-    public double Time;
-
-    public Ray(Point3 origin, Vec3 direction, double time = 0.0)
+    public Ray(Point3 origin, Vec3 direction)
     {
         Origin = origin;
         Direction = direction;
-        Time = time;
     }
 
     public Point3 At(double position) => Origin + position * Direction;

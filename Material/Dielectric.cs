@@ -23,7 +23,7 @@ public class Dielectric : IMaterial
             direction = unitDirection.Reflection(hitRecord.Normal);
         else
             direction = unitDirection.Refraction(hitRecord.Normal, refractionRatio);
-        var scattered = new Ray(hitRecord.Point, direction, incoming.Time);
+        var scattered = new Ray(hitRecord.Point, direction);
         return new ScatterRecord(Color.White, scattered);
     }
 

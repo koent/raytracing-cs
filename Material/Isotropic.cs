@@ -13,7 +13,7 @@ public class Isotropic : IMaterial
 
     public ScatterRecord? Scatter(Ray incoming, HitRecord hitRecord)
     {
-        var scattered = new Ray(hitRecord.Point, Vec3.RandomInUnitSphere(), incoming.Time);
+        var scattered = new Ray(hitRecord.Point, Vec3.RandomInUnitSphere());
         var attenuation = Albedo.Value(hitRecord.V, hitRecord.U, hitRecord.Point);
         return new ScatterRecord(attenuation, scattered);
     }

@@ -48,7 +48,7 @@ public class Sphere : IStructure
         return true;
     }
 
-    public BoundingBox? BoundingBox(double timeFrom, double timeTo) => new BoundingBox(Center - new Vec3(Radius, Radius, Radius), Center + new Vec3(Radius, Radius, Radius));
+    public BoundingBox? BoundingBox() => new BoundingBox(Center - new Vec3(Radius, Radius, Radius), Center + new Vec3(Radius, Radius, Radius));
 
     private (double, double) UV(Vec3 outwardNormal)
     {

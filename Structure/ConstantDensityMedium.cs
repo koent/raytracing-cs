@@ -24,7 +24,7 @@ public class ConstantDensityMedium : IStructure
         PhaseFunction = new Isotropic(texture);
     }
 
-    public BoundingBox? BoundingBox(double timeFrom, double timeTo) => Boundary.BoundingBox(timeFrom, timeTo);
+    public BoundingBox? BoundingBox() => Boundary.BoundingBox();
 
     public bool Hit(Ray ray, HitRecord hitRecord)
     {

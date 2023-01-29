@@ -10,9 +10,9 @@ public class BVHNode : IStructure
 
     public BoundingBox Box;
 
-    public BVHNode(StructureList list, double timeFrom, double timeTo) : this(list.AsArray, timeFrom, timeTo, 0) { }
+    public BVHNode(StructureList list) : this(list.AsArray, 0) { }
 
-    private BVHNode(IStructure[] structures, double timeFrom, double timeTo, int depth)
+    private BVHNode(IStructure[] structures, int depth)
     {
         Func<Point3, double> axis = depth % 3 == 0 ? p => p.X : depth % 3 == 1 ? p => p.Y : p => p.Z;
         Func<IStructure, double> key = s => BVHNode.BoxKey(s, axis);
@@ -30,12 +30,12 @@ public class BVHNode : IStructure
             default:
                 var sorted = structures.OrderBy(key);
                 var mid = structures.Length / 2;
-                Left = new BVHNode(structures[..mid].ToArray(), timeFrom, timeTo, depth + 1);
-                Right = new BVHNode(structures[mid..].ToArray(), timeFrom, timeTo, depth + 1);
+                Left = new BVHNode(structures[..mid].ToArray(), depth + 1);
+                Right = new BVHNode(structures[mid..].ToArray(), depth + 1);
                 break;
         }
 
-        var box = Left.BoundingBox(timeFrom, timeTo) + Right.BoundingBox(timeFrom, timeTo);
+        var box = Left.BoundingBox() + Right.BoundingBox();
         if (!box.HasValue)
             throw new ArgumentException("No bounding box in BVHNode constructor");
 
@@ -52,11 +52,11 @@ public class BVHNode : IStructure
         return leftHit || rightHit;
     }
 
-    public BoundingBox? BoundingBox(double timeFrom, double timeTo) => Box;
+    public BoundingBox? BoundingBox() => Box;
 
     private static double BoxKey(IStructure structure, Func<Point3, double> axis)
     {
-        var box = structure.BoundingBox(0, 0);
+        var box = structure.BoundingBox();
         if (!box.HasValue)
             throw new ArgumentException("No bounding box in BVHNode constructor");
 

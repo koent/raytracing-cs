@@ -21,7 +21,7 @@ public class Lambertian : IMaterial
         if (scatterDirection.IsNearZero)
             scatterDirection = hitRecord.Normal;
 
-        var scattered = new Ray(hitRecord.Point, scatterDirection, incoming.Time);
+        var scattered = new Ray(hitRecord.Point, scatterDirection);
         var attenuation = Albedo.Value(hitRecord.U, hitRecord.V, hitRecord.Point);
         return new ScatterRecord(attenuation, scattered);
     }
