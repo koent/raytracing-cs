@@ -10,7 +10,7 @@ const int nofSamples = 16;
 const int maxDepth = 50;
 
 // Set up renderer
-var scene = TutorialScenes.CornellBox();
+var scene = TutorialScenes.CornellSmoke();
 var camera = new Camera(scene.CameraSettings, aspectRatio);
 var renderer = new Renderer(scene.World, camera, scene.Background, maxDepth, imageWidth, imageHeight);
 

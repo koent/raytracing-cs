@@ -142,6 +142,25 @@ public static class TutorialScenes
         return new Scene(world, cameraSettings, Color.LightSky);
     }
 
+    public static Scene SmokeSphere()
+    {
+        // World
+        var world = new StructureList();
+        world.Add(new Sphere(new Point3(0, -1000, 0), 1000, new Lambertian(Color.GreyBlue)));
+        var sphere = new Sphere(new Point3(0, 2, 0), 2, new Lambertian(Color.White));
+        world.Add(new ConstantDensityMedium(sphere, 0.5, Color.White));
+
+        // Camera
+        var lookFrom = new Point3(13, 2, 3);
+        var lookAt = new Point3(0, 2, 0);
+        var fieldOfView = 30.0;
+        var aperture = 0.0;
+        var focusDistance = 10.0;
+
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
+        return new Scene(world, cameraSettings, Color.LightSky);
+    }
+
     public static Scene Light()
     {
         // World
@@ -186,6 +205,40 @@ public static class TutorialScenes
         // world.Add(new Box(new Point3(265, 0, 295), new Point3(430, 330, 460), white));
         world.Add(new Box(new Point3(0, 0, 0), new Point3(165, 330, 165), white).RotateY(15).Translate(new Vec3(265, 0, 295)));
         world.Add(new Box(new Point3(0, 0, 0), new Point3(165, 165, 165), white).RotateY(-18).Translate(new Vec3(130, 0, 65)));
+
+        // Camera
+        var lookFrom = new Point3(278, 278, -800);
+        var lookAt = new Point3(278, 278, 0);
+        var fieldOfView = 40.0;
+        var aperture = 0.0;
+        var focusDistance = 10.0;
+
+        var cameraSettings = new CameraSettings(lookFrom, lookAt, fieldOfView, aperture, focusDistance, 0.0, 0.0);
+        return new Scene(world, cameraSettings, Color.Black);
+    }
+
+    public static Scene CornellSmoke()
+    {
+        // World
+        var world = new StructureList();
+
+        var red = new Lambertian(Color.CornellBoxRed);
+        var white = new Lambertian(Color.CornellBoxWhite);
+        var green = new Lambertian(Color.CornellBoxGreen);
+        var light = new DiffuseLight(7);
+
+        world.Add(new YZRectangle(0, 555, 0, 555, 555, green));
+        world.Add(new YZRectangle(0, 555, 0, 555, 0, red));
+        world.Add(new XZRectangle(113, 443, 127, 432, 554, light));
+        world.Add(new XZRectangle(0, 555, 0, 555, 0, white));
+        world.Add(new XZRectangle(0, 555, 0, 555, 555, white));
+        world.Add(new XYRectangle(0, 555, 0, 555, 555, white));
+
+        var large = new Box(new Point3(0, 0, 0), new Point3(165, 330, 165), white).RotateY(15).Translate(new Vec3(265, 0, 295));
+        world.Add(new ConstantDensityMedium(large, 0.01, Color.Black));
+
+        var small = new Box(new Point3(0, 0, 0), new Point3(165, 165, 165), white).RotateY(-18).Translate(new Vec3(130, 0, 65));
+        world.Add(new ConstantDensityMedium(small, 0.01, Color.White));
 
         // Camera
         var lookFrom = new Point3(278, 278, -800);
